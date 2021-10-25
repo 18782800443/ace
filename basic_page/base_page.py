@@ -6,7 +6,6 @@ import datetime
 import allure
 from utils.yaml_util import YamlUtil
 from utils.setting import *
-from utils.device import DEVICE
 import re
 import numpy as np
 from utils.setting import run_type

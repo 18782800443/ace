@@ -1,6 +1,9 @@
 #! encoding:utf-8
 import os
 
+from utils.log_util import LogUtil
+
+logger = LogUtil().get()
 
 def get_pic_name(path, name):
     """根据name模糊查询path路径下的文件"""
