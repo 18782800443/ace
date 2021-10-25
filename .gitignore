@@ -1,0 +1,9 @@
+basic_page/__pycache__
+page_obj/__pycache__
+test_cases/__pycache__
+utils/__pycache__
+screenshot/*
+report/html/*
+report/result/*
+report/xml/*
+logs/*

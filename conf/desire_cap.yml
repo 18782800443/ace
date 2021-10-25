@@ -1,0 +1,8 @@
+appPackage: com.dmall.partner.platform.tst
+uuid: 10.12.197.242:5555
+platformName: Android
+deviceName: MI_8
+platformVersion: '10'
+appActivity: com.dmall.partner.framework.MainActivity
+automationName: UiAutomator2
+
