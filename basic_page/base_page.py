@@ -34,6 +34,7 @@ TEMPLATE_PHONE = {
 
 TEMPLATE = TEMPLATE_WEB if run_device == 0 else TEMPLATE_PHONE
 
+
 class BasePage(object):
 
     def __init__(self, driver):
@@ -55,6 +56,8 @@ class BasePage(object):
                 EC.visibility_of_element_located(locator)
             )
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             # 输出日志
             logger.error("元素 {} 等待可见超时", locator)
             # 对当前页面进行截图
@@ -129,11 +132,12 @@ class BasePage(object):
         """
         try:
             # loc = getattr(self, "_%s" % loc)  # getattr相当于实现self.loc
+            ele = self.find(*loc)
             if click_first:
-                self.find(*loc).click()
+                ele.click()
             if clear_first:
-                self.find(*loc).clear()
-                self.find(*loc).send_keys(value)
+                ele.clear()
+                ele.send_keys(value)
         except AttributeError:
             logger.error('未找到元素：{} 请检查！', loc[1])
             screen_shot = self.get_screen()
@@ -278,8 +282,11 @@ class BasePage(object):
         """
         action = ActionChains(self.driver)
         ele = self.find(*loc)
+        x, y = position
         action.click_and_hold(ele).perform()
-        action.move_by_offset(xoffset=position[0], yoffset=position[1]).perform()
+        action.move_by_offset(xoffset=5, yoffset=5).perform()
+        # action.move_by_offset(xoffset=5, yoffset=5).perform()
+        action.move_by_offset(xoffset=x-5, yoffset=y-5).perform()
         action.reset_actions()
         time.sleep(0.5)
 
@@ -376,10 +383,12 @@ class SnapshotPage(BasePage):
             self.run_pic_yml(case_data_yml, data, method_str=method_str, **kwargs)
         else:
             data = self.get_loc_data(case_data_yml, element_loc)
+            frame_dict = self.is_switch_iframe(data)
+            data = frame_dict if frame_dict else data
             find_type, element = data['find_type'], data['element']
             loc = self.by(find_type, element)
             method = getattr(self, method_str)
-            if method_str in ['click']:
+            if method_str in ['click', 'wait_element_visibility']:
                 res = method(loc)
             elif method_str in ['find', 'find_elements', 'is_element_exist']:
                 res = method(*loc)
@@ -387,16 +396,40 @@ class SnapshotPage(BasePage):
                 res = method(loc, **kwargs)
             else:
                 raise Exception(f"The function {method_str} is not yet adapted")
+            if frame_dict:
+                self.driver.switch_to.default_content()
             return res
 
-    def get_element(self, data_path, loc_str):
+    def is_switch_iframe(self, data):
+        frame_dict = data.get("frame", None)
+        if frame_dict:
+            frame_find_type = data['find_type']
+            frame_element = data['element']
+            self.frame_ele = self.find(*self.by(frame_find_type, frame_element))
+            frame_dict['location'] = self.frame_ele.location
+            frame_name = frame_dict['name']
+            self.driver.switch_to.frame(frame_name)
+            return frame_dict
+
+    def get_element_location(self, data_path, loc_str):
         """
         解析yml元素文件
         """
         data = self.get_loc_data(data_path, loc_str)
-        find_type, element = data['find_type'], data['element']
-        ele = self.find(*self.by(find_type, element))
-        return ele
+        frame_dict = self.is_switch_iframe(data)
+        element_str = frame_dict if frame_dict else data
+        ele = self.find(*self.by(element_str['find_type'], element_str['element']))
+        if frame_dict:
+            x = ele.location['x'] + frame_dict['location']['x']
+            y = ele.location['y'] + frame_dict['location']['y']
+            ele_location = {'x': x, "y": y}
+            ele_size = ele.size
+            self.driver.switch_to.default_content()
+
+        else:
+            ele_location = ele.location
+            ele_size = ele.size
+        return ele_location, ele_size
 
     def get_ele_bounds(self, ele):
         """
@@ -416,18 +449,15 @@ class SnapshotPage(BasePage):
         data = data.get(device_yml[run_device]) if data.get(device_yml[run_device]) else data
         return data
 
-    def element_snapshot(self, case_data_yml, element_loc, **kwargs):
+    def element_snapshot(self, case_data_yml, element_loc, method='click', **kwargs):
         """
         元素截图
         """
         data = self.get_loc_data(case_data_yml, element_loc)
         if not data.get('image', None):
-            ele = self.get_element(case_data_yml, element_loc)
+            ele_location, ele_size = self.get_element_location(case_data_yml, element_loc)
             save_dir = os.path.dirname(case_data_yml)
             name = element_loc
-            # 元素位置和尺寸
-            ele_location = ele.location
-            ele_size = ele.size
             # 设备分辨率
             resolution = self.get_device_resolution()
             name += f"_{str(resolution)}"
@@ -449,7 +479,7 @@ class SnapshotPage(BasePage):
         计算需要裁剪图片的最终位置坐标
         """
         # 标题栏高度
-        title_height = DEVICE.get_title_height(self.driver) if run_device == 1 else 0
+        title_height = 0
         x = ele_location['x'], ele_location['x'] + ele_size['width']
         y = ele_location['y'] + title_height, ele_location['y'] + title_height + ele_size['height']
         res = x, y

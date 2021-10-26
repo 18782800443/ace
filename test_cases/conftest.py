@@ -8,6 +8,7 @@ from utils.driver import Driver
 
 @pytest.fixture(scope='session')
 def start_web():
+    # web
     if run_device == 0:
         chrome_options = Options()
         driver = MyWebChrome(DRIVER_PATH, chrome_options=chrome_options)
@@ -15,9 +16,11 @@ def start_web():
         driver.implicitly_wait(30)
         yield driver
         driver.quit()
-    elif run_device == 1: #pad
+    # pad
+    elif run_device == 1:
         pass
-    elif run_device == 2: #android_mobile
+    # android_mobile
+    elif run_device == 2:
         driver_obj = Driver()
         driver = driver_obj.get()
         connect_android()

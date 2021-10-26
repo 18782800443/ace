@@ -1,123 +1,41 @@
-on_the_d_c:
-  web:
-    image: on_the_d_c_(1920, 1080).png
-    find_type: xpath
-    element: //span[@title="在下边"]
-  android:
-
-
-
-on_the_d_o:
-  web:
-#    image: on_the_d_o_(1920, 1080).png
-    find_type: xpath
-    element: //span[@title="在下边"]
-
-get_data:
+input_account:
   web:
     find_type: xpath
-    element: //span[contains(text(), "获取数据")]/parent::button
+    element: //input[@placeholder="请输入账号或手机号"]
 
-check_page_d1:
+input_pwd:
   web:
     find_type: xpath
-    element: //body
+    element: //input[@placeholder="请输入密码"]
 
-input_class:
+login:
   web:
     find_type: xpath
-    element: //div[@class="sa-drawer"]//div[@class="x-form-controls-wrapper sa-row"]/div[1]//input[@type="text"]
+    element: //span[text()="登录"]
 
-input_name:
-  web:
-    find_type: xpath
-    element: //div[@class="sa-drawer"]//div[@class="x-form-controls-wrapper sa-row"]/div[2]//input[@type="text"]
-
-check_page_d2:
-  web:
-    find_type: xpath
-    element: //body
-
-cancel_d:
-  web:
-    find_type: xpath
-    element: //span[contains(text(), "取消")]/parent::button
-
-check_page_d3:
-  web:
-    find_type: xpath
-    element: //body
-
-confirm_d:
-  web:
-    find_type: xpath
-    element: //span[contains(text(), "确定")]/parent::button
-
-check_page_d4:
-  web:
-    find_type: xpath
-    element: //body
-
-check_page_d5:
-  web:
-    find_type: xpath
-    element: //body
-
-check_page_d6:
-  web:
-    find_type: xpath
-    element: //body
-
-check_page_d7:
-  web:
-    find_type: xpath
-    element: //body
-
-#on_the_r:
+#slider:
 #  web:
-#    image: on_the_r_(1920, 1080).png
-#    resolution: (1920, 1081)
-on_the_r:
+#    find_type: xpath
+#    element: //div[@id="tcaptcha_drag_thumb"]
+slider:
   web:
+    frame:
+      name: tcaptcha_iframe
+      find_type: xpath
+      element: //div[@id="tcaptcha_drag_thumb"]
     find_type: xpath
-    element: //span[@title="在右边"]
+    element: //iframe[@id="tcaptcha_iframe"]
 
-check_page_r:
+check_login:
   web:
     find_type: xpath
-    element: //body
+    element: //div[contains(text(), '数据加载失败，请稍后再试')]
 
-confirm_r:
-  web:
-    find_type: xpath
-    element: //span[contains(text(), "确定")]/parent::button
-
-on_the_u:
-  web:
-    find_type: xpath
-    element: //span[@title="在上边"]
-
-check_page_u:
-  web:
-    find_type: xpath
-    element: //body
-
-confirm_u:
-  web:
-    find_type: xpath
-    element: //span[contains(text(), "确定")]/parent::button
-
-on_the_l:
-  web:
-    find_type: xpath
-    element: //span[@title="在左边"]
-
-check_page_l:
-  web:
-    find_type: xpath
-    element: //body
-
-confirm_l:
-  web:
-    find_type: xpath
-    element: //span[contains(text(), "确定")]/parent::button
+#frame:
+#  web:
+#    frame:
+#      name: tcaptcha_iframe
+#      find_type: xpath
+#      element: //div[@id="tcaptcha_drag_thumb"]
+#    find_type: xpath
+#    element: //iframe[@id="tcaptcha_iframe"]
