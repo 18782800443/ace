@@ -5,7 +5,6 @@ import requests
 from PIL import Image
 import re
 import random
-import time
 
 
 class TencentSlider(SnapshotPage):

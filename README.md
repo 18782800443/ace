@@ -40,7 +40,7 @@
 ### 四、基础能力
 
 1. utils目录下setting.py定义了项目的文件目录，以及一些重要参数
-    比如：不同的端用run_device参数表示，用dom节点执行还是用图片识别方式执行用例用run_type参数表示，ST.THRESHOLD表示图像识别精准度阈值
+    比如：不同的端用run_device参数表示，用dom节点执行还是用图像识别方式执行用例用run_type参数表示，ST.THRESHOLD表示图像识别精准度阈值
 2. utils目录下yaml_util.py定义了基础的yaml文件操作，各团队可根据需要使用或修改
 3. utils目录下driver.py封装了webdriver，各团队可直接使用或自定义
 
