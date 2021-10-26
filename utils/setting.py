@@ -1,5 +1,3 @@
-import win32api
-import win32con
 from airtest.core.api import *
 from airtest.utils.logger import get_logger
 import logging

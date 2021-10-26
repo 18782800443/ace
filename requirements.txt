@@ -1,0 +1,16 @@
+allure_python_commons==2.8.18
+pytest==6.1.1
+selenium==3.141.0
+Appium_Python_Client==1.0.2
+loguru==0.5.3
+PyYAML==5.3.1
+selenium==3.141.0
+airtest==1.1.8
+airtest-selenium==1.0.3
+opencv-python==4.4.0.46
+requests==2.20.1
+pillow==7.2.0
+Appium-Python-Client==1.0.2
+pyautogui==0.9.53
+pyperclip==1.8.2
+pynput==1.7.3
