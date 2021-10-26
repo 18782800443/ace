@@ -33,7 +33,7 @@ class TencentSlider(SnapshotPage):
         imgs = self.download_imgs(urls)
         x = self.get_gap(imgs[0], imgs[1])
         x = x//2 - 38
-        # [os.remove(f"./image{index}.png") for index in range(len(urls))]
+        [os.remove(f"./image{index}.png") for index in range(len(urls))]
         return x
 
     def get_ele_url(self):
