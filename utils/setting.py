@@ -53,4 +53,4 @@ logger.setLevel(logging.DEBUG)
 run_device = 0
 
 # 0表示原生xpath元素定位，1表示通过xpath元素截图(生成需要通过图片跑用例的形式)，2表示通过完全通过图片跑脚本
-run_type = 1
+run_type = 2
