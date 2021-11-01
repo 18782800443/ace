@@ -13,10 +13,6 @@ login:
     find_type: xpath
     element: //span[text()="登录"]
 
-#slider:
-#  web:
-#    find_type: xpath
-#    element: //div[@id="tcaptcha_drag_thumb"]
 slider:
   web:
     frame:
@@ -30,12 +26,3 @@ check_login:
   web:
     find_type: xpath
     element: //div[contains(text(), '数据加载失败，请稍后再试')]
-
-#frame:
-#  web:
-#    frame:
-#      name: tcaptcha_iframe
-#      find_type: xpath
-#      element: //div[@id="tcaptcha_drag_thumb"]
-#    find_type: xpath
-#    element: //iframe[@id="tcaptcha_iframe"]
