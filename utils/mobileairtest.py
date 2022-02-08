@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 from utils.yaml_util import YamlUtil
 from utils.setting import CONF_DIR
 from airtest.core.api import *
@@ -61,3 +62,33 @@ def swipe(v1, v2=None, position=None, **kwargs):
     G.DEVICE.swipe(pos1, pos2, **kwargs)
     delay_after_operation()
     return pos1, pos2
+
+
+def kill_ios_iproxy():
+    output = os.popen('lsof -i tcp:8100 | grep "iproxy"').read()
+    if output:
+        for line in output.split('\n'):
+            if line:
+                command, pid = line.split()[:2]
+                os.popen(f'kill -9 {pid}')
+
+
+def connect_ios():
+    kill_ios_iproxy()
+    os.popen('iproxy 8100 8100')
+    auto_setup(__file__, devices=["iOS:///http://127.0.0.1:8100"])
+
+
+def start_ios_app():
+    if "bundleId" in device_cap:
+        app_package = device_cap['bundleId']
+        stop_app(app_package)
+        start_app(app_package)
+    else:
+        raise Exception(f"未在{CONF_DIR}/desire_cap.yml找到bundleId")
+
+
+if __name__ == '__main__':
+    connect_ios()
+    start_ios_app()
+    time.sleep(3)

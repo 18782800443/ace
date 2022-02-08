@@ -1,6 +1,7 @@
+import time
 import pytest
 from utils.myairtest import MyWebChrome
-from utils.setting import DRIVER_PATH, DRIVER_SIZE
+from utils.setting import DRIVER_PATH, DRIVER_SIZE, run_type
 from selenium.webdriver.chrome.options import Options
 from utils.mobileairtest import connect_android, start_yosemite
 from utils.setting import run_device
@@ -27,3 +28,12 @@ def start_web():
         start_yosemite()
         yield driver
         driver_obj.stop()
+    elif run_device == 3:
+        from utils.mobileairtest import kill_ios_iproxy, connect_ios
+        kill_ios_iproxy()
+        driver = Driver()
+        if run_type == 2:
+            connect_ios()
+        time.sleep(3)
+        yield driver.get()
+        driver.stop()

@@ -1,6 +1,6 @@
 import cv2
-import win32api
-import win32con
+# import win32api
+# import win32con
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -315,6 +315,16 @@ class SnapshotPage(BasePage):
         if data.get('image', None):
             self.run_pic_yml(case_data_yml, data, method_str=method_str, **kwargs)
         else:
+            # ------------------iOS------------------
+            # 针对iOS，根据设备名称区分，而不根据端区分；
+            if run_device == 3:
+                device_name = YamlUtil(os.path.join(CONF_DIR, 'desire_cap.yml')).get_data().get('name', 'ios')
+                pic_path = get_pic_name(os.path.join(os.path.dirname(case_data_yml), device_name), element_loc)
+                method_str = TEMPLATE_PHONE[method_str]
+                v = self.get_template(pic_path)
+                self.run_variety_device(v, method_str, **kwargs)
+                return
+            # ------------------iOS------------------
             pic_path = get_pic_name(self.get_pic_dirpath(case_data_yml), element_loc)
             method_str = TEMPLATE[method_str]
             v = self.get_template(pic_path)
@@ -342,6 +352,10 @@ class SnapshotPage(BasePage):
             pass
         elif run_device == 2:
             self.oper_pic_device(v, method_str, **kwargs)
+        # ------------------iOS------------------
+        elif run_device == 3:
+            self.oper_pic_device(v, method_str, **kwargs)
+        # ------------------iOS------------------
 
     def get_pic_dirpath(self, case_data_yml):
         """
@@ -355,6 +369,10 @@ class SnapshotPage(BasePage):
         """
         生成template对象
         """
+        # ------------------iOS------------------
+        if run_device == 3:
+            return Template(pic_path, threshold=ST.THRESHOLD, rgb=False, resolution=(1242, 2208))
+        # ------------------iOS------------------
         if not resolution:
             pic_name = os.path.basename(os.path.splitext(pic_path)[0])
             resolution = pic_name.split('_')[-1]
@@ -384,6 +402,20 @@ class SnapshotPage(BasePage):
         if data.get('image', None):
             self.run_pic_yml(case_data_yml, data, method_str=method_str, **kwargs)
         else:
+            # ------------------iOS------------------
+            # 这里区分iOS是因为，iOS使用base_page中元素定位的方法会经常失败
+            if run_device == 3:
+                ele = self.get_element(case_data_yml, element_loc)
+                if method_str in ['click']:
+                    ele.click()
+                elif method_str in ['send_keys']:
+                    ele.send_keys(**kwargs)
+                elif method_str in ['wait_element_visibility', 'find', 'find_elements', 'is_element_exist']:
+                    pass
+                else:
+                    raise Exception(f"The function {method_str} is not yet adapted")
+                return
+            # ------------------iOS------------------
             data = self.get_loc_data(case_data_yml, element_loc)
             frame_dict = self.is_switch_iframe(data)
             data = frame_dict if frame_dict else data
@@ -420,7 +452,13 @@ class SnapshotPage(BasePage):
         data = self.get_loc_data(data_path, loc_str)
         frame_dict = self.is_switch_iframe(data)
         element_str = frame_dict if frame_dict else data
-        ele = self.find(*self.by(element_str['find_type'], element_str['element']))
+        # ------------------iOS------------------
+        # iOS单独使用定位方法，不使用base_page中的
+        if run_device == 3:
+            ele = self.get_element(data_path, loc_str)
+        # ------------------iOS------------------
+        else:
+            ele = self.find(*self.by(element_str['find_type'], element_str['element']))
         if frame_dict:
             x = ele.location['x'] + frame_dict['location']['x']
             y = ele.location['y'] + frame_dict['location']['y']
@@ -432,6 +470,22 @@ class SnapshotPage(BasePage):
             ele_location = ele.location
             ele_size = ele.size
         return ele_location, ele_size
+
+    # 主要针对iOS
+    def get_element(self, data_path, loc_str):
+        """
+        定位元素
+        """
+        data = self.get_loc_data(data_path, loc_str)
+        frame_dict = self.is_switch_iframe(data)
+        element_str = frame_dict if frame_dict else data
+        # ele = self.find(*self.by(element_str['find_type'], element_str['element']))
+        print(element_str['find_type'], element_str['element'])
+        if element_str['find_type'] == 'ios_predicate':
+            ele = self.driver.find_element_by_ios_predicate(element_str['element'])
+        elif element_str['find_type'] == 'xpath':
+            ele = self.driver.find_element_by_xpath(element_str['element'])
+        return ele
 
     def get_ele_bounds(self, ele):
         """
@@ -461,15 +515,24 @@ class SnapshotPage(BasePage):
             save_dir = os.path.dirname(case_data_yml)
             name = element_loc
             # 设备分辨率
-            resolution = self.get_device_resolution()
+            # ------------------iOS------------------
+            if run_device == 3:     # iOS端分辨率
+                resolution = (2208, 1242)
+            # ------------------iOS------------------
+            else:
+                resolution = self.get_device_resolution()
             name += f"_{str(resolution)}"
-            #获取需要裁剪的最终坐标的起始位置
+            # 获取需要裁剪的最终坐标的起始位置
             size = self.calculate_clip_size(ele_location, ele_size)
             # 截图
             # png_path = self.snapshot() if run_device != 0 else self.get_screen()
             png_path = self.get_screen('jietu.png')
             # 裁剪
             device_name = YamlUtil(os.path.join(CONF_DIR, 'desire_cap.yml')).get_data()['deviceName'] if run_device != 0 else "web"
+            # ------------------iOS------------------
+            if run_device == 3: # 根据iOS获取对应设备名称
+                device_name = YamlUtil(os.path.join(CONF_DIR, 'desire_cap.yml')).get_data()['name'] if run_device != 0 else "web"
+            # ------------------iOS------------------
             save_dir = os.path.join(save_dir, device_name, name + '.png')
             self.crop_pic(png_path, save_dir, size)
             return save_dir
@@ -484,6 +547,11 @@ class SnapshotPage(BasePage):
         title_height = 0
         x = ele_location['x'], ele_location['x'] + ele_size['width']
         y = ele_location['y'] + title_height, ele_location['y'] + title_height + ele_size['height']
+        # ------------------iOS------------------
+        if run_device == 3: # iOS图像比例因子这里为3
+            x = tuple([i*3 for i in x])
+            y = tuple([i*3 for i in y])
+        # ------------------iOS------------------
         res = x, y
         return res
 

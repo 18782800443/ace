@@ -1,0 +1,12 @@
+news:
+  ios:
+    find_type: ios_predicate
+    element: "label == '消息中心'"
+task:
+  ios:
+    find_type: xpath
+    element: (//XCUIElementTypeOther[@name="任务消息"])[2]
+item_task:
+  ios:
+    find_type: xpath
+    element: (//XCUIElementTypeOther[@name="垂直滚动条, 1页"])[3]/../XCUIElementTypeOther/XCUIElementTypeOther
