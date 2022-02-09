@@ -1,8 +1,15 @@
-appPackage: com.dmall.partner.platform.tst
-uuid: 10.12.197.242:5555
-platformName: Android
-deviceName: MI_8
-platformVersion: '10'
-appActivity: com.dmall.partner.framework.MainActivity
-automationName: UiAutomator2
+#appPackage: com.dmall.partner.platform.tst
+#uuid: 10.12.197.242:5555
+#platformName: Android
+#deviceName: MI_8
+#platformVersion: '10'
+#appActivity: com.dmall.partner.framework.MainActivity
+#automationName: UiAutomator2
 
+name: IPhone_8P
+platformName: iOS
+deviceName: 黄如学
+udid: 21d5f17a52be05a9f4454e2ec882b26fc2367d13
+bundleId: com.dmall.super.test
+automationName: XCUITest
+noReset: true

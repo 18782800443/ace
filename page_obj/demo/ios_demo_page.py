@@ -14,11 +14,17 @@ CASE_DATA_YML = os.path.join(DATA_DIR, parent_catalogue, 'ios_demo.yml')
 class IosDemo(SnapshotPage):
     def check_body(self):
         # time.sleep(3)
-        self.sort_operation(CASE_DATA_YML, 'news', 'click')
+        self.sort_operation(CASE_DATA_YML, 'search', 'click')
+        time.sleep(2)
+        self.sort_operation(CASE_DATA_YML, 'input', 'send_keys', value='帮助')
+        time.sleep(2)
+        self.sort_operation(CASE_DATA_YML, 'cancel', 'click')
+        time.sleep(2)
+        # self.sort_operation(CASE_DATA_YML, 'news', 'click')
         # time.sleep(2)
-        self.sort_operation(CASE_DATA_YML, 'task', 'click')
+        # self.sort_operation(CASE_DATA_YML, 'task', 'click')
         # time.sleep(2)
-        self.sort_operation(CASE_DATA_YML, 'item_task', 'wait_element_visibility')
+        # self.sort_operation(CASE_DATA_YML, 'item_task', 'wait_element_visibility')
 
 
 # if __name__ == '__main__':

@@ -409,7 +409,8 @@ class SnapshotPage(BasePage):
                 if method_str in ['click']:
                     ele.click()
                 elif method_str in ['send_keys']:
-                    ele.send_keys(**kwargs)
+                    if kwargs.get('value') is not None:
+                        ele.send_keys(kwargs.get('value'))
                 elif method_str in ['wait_element_visibility', 'find', 'find_elements', 'is_element_exist']:
                     pass
                 else:

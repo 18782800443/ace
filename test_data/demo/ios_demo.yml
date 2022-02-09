@@ -1,3 +1,15 @@
+search:
+  ios:
+    find_type: xpath
+    element: //XCUIElementTypeStaticText[@name="搜索"]/..
+input:
+  ios:
+    find_type: xpath
+    element: //XCUIElementTypeTextField
+cancel:
+  ios:
+    find_type: ios_predicate
+    element: 'label == "取消"'
 news:
   ios:
     find_type: ios_predicate

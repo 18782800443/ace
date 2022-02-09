@@ -32,6 +32,7 @@ def start_web():
         from utils.mobileairtest import kill_ios_iproxy, connect_ios
         kill_ios_iproxy()
         driver = Driver()
+        # 通过图像执行，调用airtest API，需要先连接设备
         if run_type == 2:
             connect_ios()
         time.sleep(3)
