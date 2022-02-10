@@ -6,6 +6,9 @@ from selenium.webdriver.chrome.options import Options
 from utils.mobileairtest import connect_android, start_yosemite
 from utils.setting import run_device
 from utils.driver import Driver
+import sys, os
+
+sys.path.append((os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))))
 
 @pytest.fixture(scope='session')
 def start_web():
