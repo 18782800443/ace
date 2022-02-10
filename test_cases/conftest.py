@@ -1,4 +1,6 @@
 import time
+import os
+import sys
 import pytest
 from utils.myairtest import MyWebChrome
 from utils.setting import DRIVER_PATH, DRIVER_SIZE, run_type
@@ -6,6 +8,8 @@ from selenium.webdriver.chrome.options import Options
 from utils.mobileairtest import connect_android, start_yosemite
 from utils.setting import run_device
 from utils.driver import Driver
+
+sys.path.append((os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))))
 
 @pytest.fixture(scope='session')
 def start_web():
