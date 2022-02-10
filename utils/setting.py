@@ -1,3 +1,4 @@
+import os
 from airtest.core.api import *
 from airtest.utils.logger import get_logger
 import logging
