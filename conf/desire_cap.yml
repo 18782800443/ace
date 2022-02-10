@@ -12,4 +12,4 @@ deviceName: 黄如学
 udid: 21d5f17a52be05a9f4454e2ec882b26fc2367d13
 bundleId: com.dmall.super.test
 automationName: XCUITest
-noReset: true
+#noReset: true
