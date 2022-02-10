@@ -1,0 +1,108 @@
+# 获取定位弹框
+get_pos_dlg:
+  android:
+    find_type:
+    element:
+  ios:
+    find_type: ios_predicate
+    element: label == "使用App时允许"
+# 允许app推送弹框
+allow_news_dlg:
+  android:
+    find_type:
+    element:
+  ios:
+    find_type: ios_predicate
+    element: label == "允许"
+# 用户协议弹框
+user_protocol_dlg:
+  android:
+    find_type:
+    element:
+  ios:
+    find_type: ios_predicate
+    element: label == "同意" AND name == "同意" AND value == "同意"
+# 引导弹框
+user_guide_dlg:
+  android:
+    find_type:
+    element:
+  ios:
+    find_type: ios_predicate
+    element: label == "点击查看全部应用"
+
+# 版本更新弹框
+dialog_version_upgrade:
+  android:
+    find_type:
+    element:
+  ios:
+    find_type: xpath
+    element: //XCUIElementTypeStaticText[@name="稍后再说"]
+
+account_loc:
+  android:
+    find_type:
+    element:
+  ios:
+    find_type: xpath
+    element: //XCUIElementTypeTextField
+passwd_loc:
+  android:
+    find_type:
+    element:
+  ios:
+    find_type: xpath
+    element: //XCUIElementTypeSecureTextField
+login_btn_loc:
+  android:
+    find_type:
+    element:
+  ios:
+    find_type: xpath
+    element: //XCUIElementTypeStaticText[@name="登录"]
+login_protocol_loc:
+  android:
+    find_type:
+    element:
+  ios:
+    find_type: xpath
+    element: //XCUIElementTypeButton[@name="os login agree nor"]
+forget_pw_loc:
+  android:
+    find_type:
+    element:
+  ios:
+    find_type: ios_predicate
+    element: type=='XCUIElementTypeStaticText' AND label=='忘记密码？'
+login_url_click_loc:
+  android:
+    find_type:
+    element:
+  ios:
+    find_type: xpath
+    element: //XCUIElementTypeButton
+
+confirm_pic_loc:
+  android:
+    find_type:
+    element:
+  ios:
+    find_type: ios_predicate
+    element: label == "拖动下方滑块完成拼图"
+
+confirm_code_pic:
+  android:
+    find_type:
+    element:
+  ios:
+    find_type: xpath
+    element: //XCUIElementTypeButton[@name="os verify refresh icon"]/../XCUIElementTypeOther
+
+welcome_dmall_os:
+  android:
+    find_type:
+    element:
+  ios:
+    find_type: ios_predicate
+    element: label == "欢迎使用 DMALL OS"
