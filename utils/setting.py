@@ -32,7 +32,7 @@ UTILS_DIR = os.path.join(BASE_DIR, "utils")
 PIC_PATH = os.path.join(BASE_DIR, "picture")
 
 # 图像识别准确率默认阈值
-ST.THRESHOLD = 0.90
+ST.THRESHOLD = 0.95
 ST.DEBUG = True
 
 # 图像识别超时时间
@@ -50,7 +50,7 @@ logger = get_logger('airtest')
 logger.setLevel(logging.DEBUG)
 
 # 0表示web， 1表示pad, 2表示android_phone, 3表示ios_phone
-run_device = 0
+run_device = 3
 
 # 0表示原生xpath元素定位，1表示通过xpath元素截图(生成需要通过图片跑用例的形式)，2表示通过完全通过图片跑脚本
-run_type = 2
+run_type = 1
