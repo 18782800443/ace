@@ -532,7 +532,8 @@ class SnapshotPage(BasePage):
             device_name = YamlUtil(os.path.join(CONF_DIR, 'desire_cap.yml')).get_data()['deviceName'] if run_device != 0 else "web"
             # ------------------iOS------------------
             if run_device == 3: # 根据iOS获取对应设备名称
-                device_name = YamlUtil(os.path.join(CONF_DIR, 'desire_cap.yml')).get_data()['name'] if run_device != 0 else "web"
+                device_name = YamlUtil(os.path.join(CONF_DIR, 'desire_cap.yml')).get_data().get('name')
+                device_name = device_name or 'ios'
             # ------------------iOS------------------
             save_dir = os.path.join(save_dir, device_name, name + '.png')
             self.crop_pic(png_path, save_dir, size)
