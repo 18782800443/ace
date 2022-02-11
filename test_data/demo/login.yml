@@ -13,9 +13,7 @@ allow_news_dlg:
     element:
   ios:
     find_type: ios_predicate
-    element: value == "要求App不跟踪"
-#    find_type: xpath
-#    element: //XCUIElementTypeStaticText[@name="要求App不跟踪"]
+    element: type == "XCUIElementTypeButton" AND value == "允许"
 # 用户协议弹框
 user_protocol_dlg:
   android:
