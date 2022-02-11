@@ -484,6 +484,8 @@ class SnapshotPage(BasePage):
         print(element_str['find_type'], element_str['element'])
         if element_str['find_type'] == 'ios_predicate':
             ele = self.driver.find_element_by_ios_predicate(element_str['element'])
+        if element_str['find_type'] == 'accessibility':
+            ele = self.driver.find_element_by_accessibility_id(element_str['element'])
         elif element_str['find_type'] == 'xpath':
             ele = self.driver.find_element_by_xpath(element_str['element'])
         return ele
