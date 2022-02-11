@@ -13,7 +13,7 @@ allow_news_dlg:
     element:
   ios:
     find_type: ios_predicate
-    element: type == "XCUIElementTypeButton" AND value == "允许"
+    element: label == "允许"
 # 用户协议弹框
 user_protocol_dlg:
   android:
