@@ -488,6 +488,9 @@ class SnapshotPage(BasePage):
             ele = self.driver.find_element_by_xpath(element_str['element'])
         return ele
 
+    def alert_accept(self):
+        self.driver.switch_to.alert.accept()
+
     def get_ele_bounds(self, ele):
         """
         获取元素首尾坐标
