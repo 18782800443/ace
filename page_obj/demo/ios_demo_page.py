@@ -145,12 +145,10 @@ class IosDemo(SnapshotPage):
         # self.get_element(LOGIN_DATA_YML, 'passwd_loc').send_keys(account)
         # self.get_element(LOGIN_DATA_YML, 'login_protocol_loc').click()
         # self.get_element(LOGIN_DATA_YML, 'login_btn_loc').click()
-        self.sort_operation(LOGIN_DATA_YML, 'allow_news_dlg', 'click')
-        time.sleep(2)
-
         self.sort_operation(LOGIN_DATA_YML, 'user_protocol_dlg', 'click')
         time.sleep(6)
-
+        self.sort_operation(LOGIN_DATA_YML, 'allow_news_dlg', 'click')
+        time.sleep(2)
         self.sort_operation(LOGIN_DATA_YML, 'account_loc', 'send_keys', value='18323721334')
         time.sleep(2)
         self.sort_operation(LOGIN_DATA_YML, 'passwd_loc', 'send_keys', value='Qmn12345')
