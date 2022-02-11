@@ -74,8 +74,8 @@ def kill_ios_iproxy():
 
 
 def connect_ios():
-    kill_ios_iproxy()
-    os.popen('iproxy 8100 8100')
+    # kill_ios_iproxy()
+    # os.popen('iproxy 8100 8100')
     auto_setup(__file__, devices=["iOS:///http://127.0.0.1:8100"])
 
 
