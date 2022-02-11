@@ -13,7 +13,7 @@ allow_news_dlg:
     element:
   ios:
     find_type: ios_predicate
-    element: value == "允许"
+    element: name == "允许"
 # 用户协议弹框
 user_protocol_dlg:
   android:
