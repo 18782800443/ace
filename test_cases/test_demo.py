@@ -9,7 +9,7 @@
 #     @pytest.mark.run(order=1)
 #     def test_web_demo(self, start_web):
 #         page = DemoPage(start_web)
-#         page.driver.get("https://testpartner.dmall.com")
+#         page.driver.get("https://baidu.com")
 #         time.sleep(5)
 #         page.input_account()
 #         page.input_password()

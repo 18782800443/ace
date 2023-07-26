@@ -99,10 +99,10 @@ confirm_code_pic:
     find_type: xpath
     element: //XCUIElementTypeButton[@name="os verify refresh icon"]/../XCUIElementTypeOther
 
-welcome_dmall_os:
+welcome_xxx_os:
   android:
     find_type:
     element:
   ios:
     find_type: ios_predicate
-    element: label == "欢迎使用 DMALL OS"
+    element: label == "欢迎使用 xxx OS"

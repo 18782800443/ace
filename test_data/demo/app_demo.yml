@@ -39,7 +39,7 @@ osapp_login:
 check_the_agreement:
   android:
     find_type: id
-    element: com.dmall.partner.platform.tst:id/iv_selector
+    element: com.xxx.xxxx.platform.tst:id/iv_selector
 
 tencent_slider:
   android:

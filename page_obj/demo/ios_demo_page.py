@@ -154,7 +154,7 @@ class IosDemo(SnapshotPage):
         time.sleep(2)
         self.sort_operation(LOGIN_DATA_YML, 'passwd_loc', 'send_keys', value='Qmn12345')
         time.sleep(2)
-        self.sort_operation(LOGIN_DATA_YML, 'welcome_dmall_os', 'click')
+        self.sort_operation(LOGIN_DATA_YML, 'welcome_xxx_os', 'click')
         time.sleep(2)
         self.sort_operation(LOGIN_DATA_YML, 'login_protocol_loc', 'click')
         time.sleep(2)

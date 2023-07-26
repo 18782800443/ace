@@ -297,7 +297,7 @@ class SnapshotPage(BasePage):
 
     def sort_operation(self, *args, **kwargs):
         """
-        根据全局参数run_type，判断指定用例方式:：1、selenium或者appium的xpath操作 2、通过xpath操作，并截图 3、通过图像识别定位操作
+        根据全局参数run_type，判断执行用例方式:：1、selenium或者appium的xpath操作 2、通过xpath操作，并截图 3、通过图像识别定位操作
         """
         if run_type == 0:
             self.operation_element(*args, **kwargs)

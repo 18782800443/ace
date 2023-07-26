@@ -112,7 +112,7 @@ class DemoPage(TencentSlider):
         self.sort_operation(CASE_DATA_YML, "input_account", "send_keys", value="escadmin")
 
     def input_password(self):
-        self.sort_operation(CASE_DATA_YML, "input_pwd", "send_keys", value="dmall123")
+        self.sort_operation(CASE_DATA_YML, "input_pwd", "send_keys", value="xxx123")
 
     def login(self):
         self.sort_operation(CASE_DATA_YML, "login")
